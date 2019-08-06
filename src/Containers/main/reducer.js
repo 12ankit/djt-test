@@ -56,7 +56,7 @@ export function carState(state = initialState, action) {
           isLoading: true
         }
       };
-    case types.GET_CAR_TYPE_SUCCESS:
+    case types.GET_FUEL_TYPE_SUCCESS:
       return {
         ...state,
         fuelTypes: {
@@ -66,7 +66,7 @@ export function carState(state = initialState, action) {
           isSuccess: true
         }
       };
-    case types.GET_CAR_TYPE_FAILURES:
+    case types.GET_FUEL_TYPE_FAILURES:
       return {
         ...state,
         fuelTypes: {
