@@ -17,7 +17,7 @@ const initialState = {
 };
 
 export function carState(state = initialState, action) {
-  switch (action.types) {
+  switch (action.type) {
     case types.GET_CAR_TYPE:
       return {
         ...state,
