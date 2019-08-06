@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { createLogger } from "redux-logger";
+import thunk from "redux-thunk";
 import reducer from "./reducer";
 
 // log every action to see what's happening behind the scenes.
@@ -11,7 +12,7 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-const reduxMiddleware = composeEnhancers(applyMiddleware(logger));
+const reduxMiddleware = composeEnhancers(applyMiddleware(logger, thunk));
 
 const store = createStore(reducer, reduxMiddleware);
 

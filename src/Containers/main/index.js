@@ -17,6 +17,13 @@ class Main extends React.Component {
     varient: { ...defualtSelect }
   };
 
+  componentDidMount() {
+    const { getCartType, getFeulType, getVarient } = this.props.actions;
+    getCartType();
+    getFeulType();
+    getVarient();
+  }
+
   changeHandler = event => {
     const key = event.target.name;
     const value = event.target.value;

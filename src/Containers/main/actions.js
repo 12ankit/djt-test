@@ -1,15 +1,47 @@
 import * as types from "./actionTypes";
+import axios from "axios";
 
-export const actionCreator = type => params => ({ type, ...params });
+const carApi =
+  "http://api.stargroupindia.org/api/Vehicle/GetVehiclesByType?type=Car";
+const fuelApi =
+  "http://api.stargroupindia.org/api/Vehicle/GetFuelByVehicleID/154";
+const varientApi =
+  "http://api.stargroupindia.org/api/Vehicle/GetVariantsByVehicleAndFuel?VehicleID=443&amp;FuelID=101";
 
-export const getCartType = actionCreator(types.GET_CAR_TYPE);
-export const getCartTypeSuccess = actionCreator(types.GET_CAR_TYPE_SUCCESS);
-export const getCartTypeFailure = actionCreator(types.GET_CAR_TYPE_FAILURES);
+const actionAPICaller = (
+  type,
+  successType,
+  errorType,
+  api
+) => params => dispatch => {
+  dispatch({ type });
+  axios
+    .get(api)
+    .then(response => {
+      dispatch({ type: successType, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({ type: errorType, error });
+    });
+};
 
-export const getFeulType = actionCreator(types.GET_FUEL_TYPE);
-export const getFeulTypeSuccess = actionCreator(types.GET_FUEL_TYPE_SUCCESS);
-export const getFeulTypeFailure = actionCreator(types.GET_FUEL_TYPE_FAILURES);
+export const getCartType = actionAPICaller(
+  types.GET_CAR_TYPE,
+  types.GET_CAR_TYPE_SUCCESS,
+  types.GET_CAR_TYPE_FAILURES,
+  carApi
+);
 
-export const getVarient = actionCreator(types.GET_VARIENT);
-export const getVarientSuccess = actionCreator(types.GET_VARIENT_SUCCESS);
-export const getVarientFailure = actionCreator(types.GET_VARIENT_FAILURES);
+export const getFeulType = actionAPICaller(
+  types.GET_FUEL_TYPE,
+  types.GET_FUEL_TYPE_SUCCESS,
+  types.GET_FUEL_TYPE_FAILURES,
+  fuelApi
+);
+
+export const getVarient = actionAPICaller(
+  types.GET_VARIENT,
+  types.GET_VARIENT_SUCCESS,
+  types.GET_VARIENT_FAILURES,
+  varientApi
+);
